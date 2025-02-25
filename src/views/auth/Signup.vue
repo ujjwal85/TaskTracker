@@ -143,7 +143,7 @@ const signIn = () => {
   max-width: 120px;
 }
 .signup-btn {
-  background: #1976d2;
+  background: linear-gradient(to right, #436362, #71d871);
   color: white;
   font-weight: bold;
   border-radius: 8px;

@@ -99,7 +99,7 @@ const forgotPassword = () => {
   text-align: center;
 }
 .login-btn {
-  background: black;
+  background: linear-gradient(to right, #436362, #71d871);
   color: white;
   font-weight: bold;
   border-radius: 6px;

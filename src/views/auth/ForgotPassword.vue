@@ -70,7 +70,7 @@ const goBack = () => {
 }
 
 .reset-btn {
-  background: #6a1b9a;
+  background: linear-gradient(to right, #436362, #71d871);
   color: white;
   font-weight: bold;
   border-radius: 6px;
