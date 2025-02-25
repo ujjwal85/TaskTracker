@@ -12,7 +12,7 @@
   transform: translate(-50%, -50%);
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.1;
 }
 
 .watermark img {
