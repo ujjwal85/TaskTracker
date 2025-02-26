@@ -81,7 +81,12 @@
 
       <v-card-text class="text-center text-caption mt-2">
         Already have an account?
-        <a class="text-blue text-decoration-none font-weight-bold" href="#" @click="signIn">
+        <a
+          class="text-blue text-decoration-none font-weight-bold"
+          @click="signIn"
+          role="button"
+          style="cursor: pointer"
+        >
           Sign in now
         </a>
       </v-card-text>

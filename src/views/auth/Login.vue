@@ -28,9 +28,11 @@
       <div
         class="d-flex justify-space-between text-caption forgot-password"
         @click="forgotPassword"
+        role="button"
+        style="cursor: pointer"
       >
         <span></span>
-        <a href="#" class="text-blue">Forgot password?</a>
+        <a class="font-weight-bold text-blue">Forgot password?</a>
       </div>
 
       <v-btn class="mt-3 login-btn" block @click="login" :loading="loading" :disabled="loading">
@@ -56,7 +58,12 @@
 
       <v-card-text class="text-center text-caption mt-2">
         Don't have an account?
-        <a class="text-blue text-decoration-none font-weight-bold" href="#" @click="signUp">
+        <a
+          class="text-blue text-decoration-none font-weight-bold"
+          @click="signUp"
+          role="button"
+          style="cursor: pointer"
+        >
           Sign up now
         </a>
       </v-card-text>
