@@ -33,7 +33,12 @@
         <a href="#" class="text-blue">Forgot password?</a>
       </div>
 
-      <v-btn class="mt-3 login-btn" block @click="login">Sign In</v-btn>
+      <v-btn class="mt-3 login-btn" block @click="login" :loading="loading" :disabled="loading">
+        <template v-if="loading">
+          <v-progress-circular indeterminate size="20" color="white"></v-progress-circular>
+        </template>
+        <template v-else> Sign In </template>
+      </v-btn>
 
       <p class="text-center text-grey-darken-1 text-caption mt-2">Or sign in with</p>
 
@@ -59,17 +64,35 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { errorStore } from '@/stores/errorStore'
 
 const router = useRouter()
-const email = ref('')
-const password = ref('')
-const showPassword = ref(false)
+const email = ref<string>('')
+const password = ref<string>('')
+const showPassword = ref<boolean>(false)
+const loading = ref<boolean>(false)
 
-const login = () => {
-  console.log('Login clicked')
+const login = async () => {
+  if (!email.value || !password.value) {
+    errorStore.setError('Email and Password are required!')
+    return
+  }
+
+  loading.value = true
+
+  setTimeout(() => {
+    if (email.value !== 'test@example.com' || password.value !== 'password') {
+      errorStore.setError('Invalid email or password!')
+      loading.value = false
+      return
+    }
+
+    console.log('Login successful')
+    router.push('/dashboard')
+  }, 2000)
 }
 
 const signUp = () => {

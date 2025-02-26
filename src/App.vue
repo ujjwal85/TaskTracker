@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <Watermark />
+    <ErrorPopup />
     <router-view />
   </div>
 </template>
 
 <script>
 import Watermark from '@/components/Watermark.vue'
+import ErrorPopup from './components/ErrorPopup.vue'
 
 export default {
-  components: { Watermark },
+  components: { Watermark, ErrorPopup },
 }
 </script>
 
