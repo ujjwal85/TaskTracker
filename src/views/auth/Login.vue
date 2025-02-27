@@ -95,10 +95,10 @@ const login = async () => {
       errorStore.setError('Invalid email or password!')
       loading.value = false
       return
+    } else {
+      localStorage.setItem('authToken', 'dummyToken')
+      router.push('/dashboard')
     }
-
-    console.log('Login successful')
-    router.push('/dashboard')
   }, 2000)
 }
 
