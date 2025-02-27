@@ -18,9 +18,16 @@
           variant="outlined"
           density="compact"
           class="mt-3"
+          type="email"
         ></v-text-field>
 
-        <v-btn class="reset-btn mt-3" block @click="sendOtp">Send OTP</v-btn>
+        <v-btn
+          class="reset-btn mt-3"
+          block
+          @click="sendOtp"
+          :disabled="computedValues.isEmailDisabled"
+          >Send OTP</v-btn
+        >
         <v-btn variant="text" class="back-to-login mt-2" @click="goBack">
           <v-icon left>mdi-arrow-left</v-icon> Back to log in
         </v-btn>
@@ -50,7 +57,7 @@
           class="reset-btn mt-3"
           @click="verifyOtp"
           :loading="loading"
-          :disabled="otpValue.length !== 4"
+          :disabled="computedValues.otpValue.length !== 4"
         >
           VERIFY OTP
         </v-btn>
@@ -90,7 +97,13 @@
           class="mt-3"
         ></v-text-field>
 
-        <v-btn color="primary" block class="reset-btn mt-3" @click="resetPassword">
+        <v-btn
+          color="primary"
+          block
+          class="reset-btn mt-3"
+          @click="resetPassword"
+          :disabled="computedValues.isResetDisabled"
+        >
           RESET PASSWORD
         </v-btn>
       </div>
@@ -101,6 +114,7 @@
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { errorStore } from '@/stores/errorStore'
 
 const router = useRouter()
 const step = ref<'email' | 'otp' | 'reset'>('email')
@@ -113,9 +127,13 @@ const timer = ref<number>(30)
 const password = ref<string>('')
 const confirmPassword = ref<string>('')
 
-const otpValue = computed(() => otpDigits.value.join(''))
-
+const computedValues = computed(() => ({
+  otpValue: otpDigits.value.join(''),
+  isResetDisabled: !password.value || !confirmPassword.value,
+  isEmailDisabled: !email.value,
+}))
 const handleOtpInput = (index: number) => {
+  otpDigits.value[index] = otpDigits.value[index].replace(/\D/g, '')
   if (otpDigits.value[index].length > 1) {
     otpDigits.value[index] = otpDigits.value[index].slice(0, 1)
   }
@@ -125,8 +143,13 @@ const handleOtpInput = (index: number) => {
 }
 
 const sendOtp = () => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!email.value) {
-    alert('Please enter your email')
+    errorStore.setError('Please enter your email')
+    return
+  }
+  if (!emailPattern.test(email.value)) {
+    errorStore.setError('Please enter a valid email address')
     return
   }
   step.value = 'otp'
@@ -136,7 +159,7 @@ const verifyOtp = () => {
   loading.value = true
   setTimeout(() => {
     loading.value = false
-    alert('OTP Verified Successfully! Redirecting to password reset...')
+    errorStore.setError('OTP Verified Successfully! Redirecting to password reset...')
     step.value = 'reset'
   }, 2000)
 }
@@ -155,7 +178,7 @@ const resendOtp = () => {
 
 const resetPassword = () => {
   if (password.value !== confirmPassword.value) {
-    alert('Passwords do not match!')
+    errorStore.setError('Passwords do not match!')
     return
   }
   alert('Password reset successfully!')
