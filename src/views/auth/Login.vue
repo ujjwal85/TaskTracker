@@ -82,6 +82,12 @@ const password = ref<string>('')
 const showPassword = ref<boolean>(false)
 const loading = ref<boolean>(false)
 
+const users = [
+  { email: 'admin@example.com', password: 'admin123', role: 'admin' },
+  { email: 'user@example.com', password: 'user123', role: 'user' },
+  { email: 'useradmin@example.com', password: 'useradmin123', role: 'useradmin' },
+]
+
 const login = async () => {
   if (!email.value || !password.value) {
     errorStore.setError('Email and Password are required!')
@@ -91,14 +97,18 @@ const login = async () => {
   loading.value = true
 
   setTimeout(() => {
-    if (email.value !== 'test@example.com' || password.value !== 'password') {
+    const user = users.find((u) => u.email === email.value && u.password === password.value)
+
+    if (!user) {
       errorStore.setError('Invalid email or password!')
       loading.value = false
       return
-    } else {
-      localStorage.setItem('authToken', 'dummyToken')
-      router.push('/dashboard')
     }
+
+    localStorage.setItem('authToken', 'dummyToken')
+    localStorage.setItem('userRole', user.role)
+
+    router.push('/dashboard')
   }, 2000)
 }
 
