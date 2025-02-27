@@ -1,20 +1,26 @@
 import { reactive } from 'vue'
 
 const state = reactive({
-    errorMessage: '',
-    showError: false
+    showMessage: false,
+    messageType: 'error',
+    messageText: '',
 })
 
 export const errorStore = {
     state,
 
     setError(message: string) {
-        state.errorMessage = message
-        state.showError = true
+        state.messageText = message,
+            state.messageType = 'error',
+            state.showMessage = true
     },
-
-    clearError() {
-        state.errorMessage = ''
-        state.showError = false
+    setSuccess(message: string) {
+        state.messageText = message,
+            state.messageType = 'success',
+            state.showMessage = true
+    },
+    clearMessage() {
+        state.messageText = '',
+            state.showMessage = false
     }
 }

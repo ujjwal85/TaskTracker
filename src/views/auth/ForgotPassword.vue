@@ -159,7 +159,7 @@ const verifyOtp = () => {
   loading.value = true
   setTimeout(() => {
     loading.value = false
-    errorStore.setError('OTP Verified Successfully! Redirecting to password reset...')
+    errorStore.setSuccess('OTP Verified Successfully! Redirecting to password reset...')
     step.value = 'reset'
   }, 2000)
 }
@@ -181,7 +181,7 @@ const resetPassword = () => {
     errorStore.setError('Passwords do not match!')
     return
   }
-  alert('Password reset successfully!')
+  errorStore.setSuccess('Password reset successfully!')
   router.push('/SignIn')
 }
 
