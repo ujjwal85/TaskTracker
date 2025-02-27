@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <Sidebar v-if="isLoggedIn" :menu-items="menuItems" />
-    <div class="content-area">
-      <v-app-bar density="compact">
+    <div class="main-layout">
+      <v-app-bar app dense>
         <v-app-bar-title>{{ currentTitle }}</v-app-bar-title>
         <v-spacer></v-spacer>
         <v-menu location="bottom end">
@@ -31,8 +31,8 @@
         </v-menu>
       </v-app-bar>
 
-      <v-main class="content-area">
-        <router-view></router-view>
+      <v-main class="content-container">
+        <router-view />
       </v-main>
     </div>
   </v-app>
@@ -55,7 +55,7 @@ const handleLogout = () => {
 
 const menuItems = [
   { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
-  { title: 'Files', icon: 'mdi-folder', route: '/dashboard' },
+  { title: 'Files', icon: 'mdi-folder', route: '/files' },
 ]
 
 const userMenuItems = [
@@ -71,7 +71,26 @@ const currentTitle = computed(() => {
 </script>
 
 <style scoped>
-.content-area {
-  padding-top: 15px;
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-left: 100px;
+}
+
+.v-app-bar {
+  width: calc(100% - 100px);
+  position: fixed;
+  top: 0;
+  left: 100px;
+  z-index: 1001;
+}
+
+.content-container {
+  flex-grow: 1;
+  margin-top: 56px;
+  padding: 20px;
+  width: calc(100% - 100px);
+  overflow-y: auto;
 }
 </style>
