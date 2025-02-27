@@ -37,3 +37,23 @@ npm run build
 ```sh
 npm run lint
 ```
+
+/project-management
+│── /src
+│ ├── /views
+│ │ ├── /auth
+│ │ │ ├── Register.vue
+│ │ │ ├── Login.vue
+│ │ ├── Dashboard.vue
+│ ├── /components
+│ │ ├── Sidebar.vue
+│ │ ├── Watermark.vue
+│ │ ├── ProjectList.vue
+│ ├── /router
+│ │ ├── index.js
+│ ├── /store
+│ │ ├── store.js
+│ ├── App.vue
+│ ├── main.js
+│── index.html
+│── vite.config.js
