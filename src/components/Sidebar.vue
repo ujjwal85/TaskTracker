@@ -23,11 +23,11 @@
   </v-navigation-drawer>
 </template>
 
-<script setup lang="ts">
+<script setup>
 defineProps({
   menuItems: {
-    type: Array as () => Array<{ title: string; icon: string; route: string }>,
-    default: () => [],
+    type: Array,
+    required: true,
   },
 })
 </script>
@@ -40,7 +40,7 @@ defineProps({
   transition: none !important;
   background:
     linear-gradient(rgba(31 81 68 / 80%), rgba(16 229 86 / 80%)),
-    url('C:\ujjwal\veu apdmin panel\admin\src\assets\sidebarBackgraound.jpg');
+    url('@/assets/sidebarBackgraound.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
