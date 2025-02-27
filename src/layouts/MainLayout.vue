@@ -55,12 +55,23 @@ const handleLogout = () => {
 
 const menuItems = [
   { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
-  { title: 'Files', icon: 'mdi-folder', route: '/files' },
+
+  { title: 'Projects', icon: 'mdi-folder-multiple', route: '/projects' },
+  { title: 'Tasks', icon: 'mdi-check-circle', route: '/tasks' },
+
+  { title: 'Users', icon: 'mdi-account-group', route: '/users' },
+  { title: 'Admins', icon: 'mdi-shield-account', route: '/admins' },
+
+  { title: 'Reports', icon: 'mdi-file-chart', route: '/reports' },
+  { title: 'Time Tracking', icon: 'mdi-timer-sand', route: '/reports/time-tracking' },
+
+  { title: 'System Logs', icon: 'mdi-file-document', route: '/settings/logs' },
 ]
 
 const userMenuItems = [
   { title: 'Profile', icon: 'mdi-account' },
   { title: 'Settings', icon: 'mdi-cog' },
+  { title: 'Permissions', icon: 'mdi-lock' },
   { title: 'Logout', icon: 'mdi-logout', action: handleLogout },
 ]
 
