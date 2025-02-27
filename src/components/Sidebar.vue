@@ -39,7 +39,7 @@ defineProps({
   z-index: 1000;
   transition: none !important;
   background:
-    linear-gradient(rgba(44, 65, 111, 0.8), rgba(44, 65, 111, 0.8)),
+    linear-gradient(rgba(31 81 68 / 80%), rgba(16 229 86 / 80%)),
     url('C:\ujjwal\veu apdmin panel\admin\src\assets\sidebarBackgraound.jpg');
   background-size: cover;
   background-position: center;

@@ -1,15 +1,17 @@
 <template>
   <v-app>
-    <Sidebar :menu-items="menuItems" />
-    <div class="content-area">
-      <v-app-bar density="compact">
+    <Sidebar v-if="isLoggedIn" :menu-items="menuItems" />
+    <div class="main-layout">
+      <v-app-bar app dense>
         <v-app-bar-title>{{ currentTitle }}</v-app-bar-title>
         <v-spacer></v-spacer>
         <v-menu location="bottom end">
           <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props">
               <v-avatar size="40" color="primary">
-                <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+                <v-img
+                  src="https://lh3.googleusercontent.com/ogw/AF2bZyhGQDTvH1V6CH5t3NDJXsKGZ6jwi3MR-m7sxSY7SmiLxA=s32-c-mo"
+                ></v-img>
               </v-avatar>
             </v-btn>
           </template>
@@ -29,8 +31,8 @@
         </v-menu>
       </v-app-bar>
 
-      <v-main class="content-area">
-        <router-view></router-view>
+      <v-main class="content-container">
+        <router-view />
       </v-main>
     </div>
   </v-app>
@@ -38,25 +40,28 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Sidebar from '@/components/Sidebar.vue'
 
 const route = useRoute()
+const router = useRouter()
+
+const isLoggedIn = computed(() => !!localStorage.getItem('authToken'))
 
 const handleLogout = () => {
-  console.log('Logout clicked')
+  localStorage.removeItem('authToken')
+  router.push('/SignIn')
 }
 
 const menuItems = [
-  { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/' },
-  { title: 'Files', icon: 'mdi-folder', route: '/' },
+  { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
+  { title: 'Files', icon: 'mdi-folder', route: '/files' },
 ]
 
 const userMenuItems = [
-  { title: 'Profile', icon: 'mdi-account', value: 'profile' },
-  { title: 'Settings', icon: 'mdi-cog', value: 'settings' },
-  { divider: true },
-  { title: 'Logout', icon: 'mdi-logout', value: 'logout', action: handleLogout },
+  { title: 'Profile', icon: 'mdi-account' },
+  { title: 'Settings', icon: 'mdi-cog' },
+  { title: 'Logout', icon: 'mdi-logout', action: handleLogout },
 ]
 
 const currentTitle = computed(() => {
@@ -66,7 +71,26 @@ const currentTitle = computed(() => {
 </script>
 
 <style scoped>
-.content-area {
-  padding-top: 15px;
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-left: 100px;
+}
+
+.v-app-bar {
+  width: calc(100% - 100px);
+  position: fixed;
+  top: 0;
+  left: 100px;
+  z-index: 1001;
+}
+
+.content-container {
+  flex-grow: 1;
+  margin-top: 56px;
+  padding: 20px;
+  width: calc(100% - 100px);
+  overflow-y: auto;
 }
 </style>
